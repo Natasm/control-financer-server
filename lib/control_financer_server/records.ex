@@ -1,0 +1,296 @@
+defmodule ControlFinancerServer.Records do
+  @moduledoc """
+  The Records context.
+  """
+
+  import Ecto.Query, warn: false
+  alias ControlFinancerServer.Repo
+
+  alias ControlFinancerServer.Records.Record
+
+  @doc """
+  Returns the list of records.
+
+  ## Examples
+
+      iex> list_records()
+      [%Record{}, ...]
+
+  """
+  def list_records do
+    Repo.all(Record)
+  end
+
+  @doc """
+  Gets a single record.
+
+  Raises `Ecto.NoResultsError` if the Record does not exist.
+
+  ## Examples
+
+      iex> get_record!(123)
+      %Record{}
+
+      iex> get_record!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_record!(id), do: Repo.get!(Record, id)
+
+  @doc """
+  Creates a record.
+
+  ## Examples
+
+      iex> create_record(%{field: value})
+      {:ok, %Record{}}
+
+      iex> create_record(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_record(attrs \\ %{}) do
+    %Record{}
+    |> Record.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a record.
+
+  ## Examples
+
+      iex> update_record(record, %{field: new_value})
+      {:ok, %Record{}}
+
+      iex> update_record(record, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_record(%Record{} = record, attrs) do
+    record
+    |> Record.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a record.
+
+  ## Examples
+
+      iex> delete_record(record)
+      {:ok, %Record{}}
+
+      iex> delete_record(record)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_record(%Record{} = record) do
+    Repo.delete(record)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking record changes.
+
+  ## Examples
+
+      iex> change_record(record)
+      %Ecto.Changeset{data: %Record{}}
+
+  """
+  def change_record(%Record{} = record, attrs \\ %{}) do
+    Record.changeset(record, attrs)
+  end
+
+  alias ControlFinancerServer.Records.RecordAccountBank
+
+  @doc """
+  Returns the list of record_account_banks.
+
+  ## Examples
+
+      iex> list_record_account_banks()
+      [%RecordAccountBank{}, ...]
+
+  """
+  def list_record_account_banks do
+    Repo.all(RecordAccountBank)
+  end
+
+  @doc """
+  Gets a single record_account_bank.
+
+  Raises `Ecto.NoResultsError` if the Record account bank does not exist.
+
+  ## Examples
+
+      iex> get_record_account_bank!(123)
+      %RecordAccountBank{}
+
+      iex> get_record_account_bank!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_record_account_bank!(id), do: Repo.get!(RecordAccountBank, id)
+
+  @doc """
+  Creates a record_account_bank.
+
+  ## Examples
+
+      iex> create_record_account_bank(%{field: value})
+      {:ok, %RecordAccountBank{}}
+
+      iex> create_record_account_bank(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_record_account_bank(attrs \\ %{}) do
+    %RecordAccountBank{}
+    |> RecordAccountBank.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a record_account_bank.
+
+  ## Examples
+
+      iex> update_record_account_bank(record_account_bank, %{field: new_value})
+      {:ok, %RecordAccountBank{}}
+
+      iex> update_record_account_bank(record_account_bank, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_record_account_bank(%RecordAccountBank{} = record_account_bank, attrs) do
+    record_account_bank
+    |> RecordAccountBank.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a record_account_bank.
+
+  ## Examples
+
+      iex> delete_record_account_bank(record_account_bank)
+      {:ok, %RecordAccountBank{}}
+
+      iex> delete_record_account_bank(record_account_bank)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_record_account_bank(%RecordAccountBank{} = record_account_bank) do
+    Repo.delete(record_account_bank)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking record_account_bank changes.
+
+  ## Examples
+
+      iex> change_record_account_bank(record_account_bank)
+      %Ecto.Changeset{data: %RecordAccountBank{}}
+
+  """
+  def change_record_account_bank(%RecordAccountBank{} = record_account_bank, attrs \\ %{}) do
+    RecordAccountBank.changeset(record_account_bank, attrs)
+  end
+
+  alias ControlFinancerServer.Records.RecordCreditCard
+
+  @doc """
+  Returns the list of record_credit_cards.
+
+  ## Examples
+
+      iex> list_record_credit_cards()
+      [%RecordCreditCard{}, ...]
+
+  """
+  def list_record_credit_cards do
+    Repo.all(RecordCreditCard)
+  end
+
+  @doc """
+  Gets a single record_credit_card.
+
+  Raises `Ecto.NoResultsError` if the Record credit card does not exist.
+
+  ## Examples
+
+      iex> get_record_credit_card!(123)
+      %RecordCreditCard{}
+
+      iex> get_record_credit_card!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_record_credit_card!(id), do: Repo.get!(RecordCreditCard, id)
+
+  @doc """
+  Creates a record_credit_card.
+
+  ## Examples
+
+      iex> create_record_credit_card(%{field: value})
+      {:ok, %RecordCreditCard{}}
+
+      iex> create_record_credit_card(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_record_credit_card(attrs \\ %{}) do
+    %RecordCreditCard{}
+    |> RecordCreditCard.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a record_credit_card.
+
+  ## Examples
+
+      iex> update_record_credit_card(record_credit_card, %{field: new_value})
+      {:ok, %RecordCreditCard{}}
+
+      iex> update_record_credit_card(record_credit_card, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_record_credit_card(%RecordCreditCard{} = record_credit_card, attrs) do
+    record_credit_card
+    |> RecordCreditCard.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a record_credit_card.
+
+  ## Examples
+
+      iex> delete_record_credit_card(record_credit_card)
+      {:ok, %RecordCreditCard{}}
+
+      iex> delete_record_credit_card(record_credit_card)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_record_credit_card(%RecordCreditCard{} = record_credit_card) do
+    Repo.delete(record_credit_card)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking record_credit_card changes.
+
+  ## Examples
+
+      iex> change_record_credit_card(record_credit_card)
+      %Ecto.Changeset{data: %RecordCreditCard{}}
+
+  """
+  def change_record_credit_card(%RecordCreditCard{} = record_credit_card, attrs \\ %{}) do
+    RecordCreditCard.changeset(record_credit_card, attrs)
+  end
+end
