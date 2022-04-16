@@ -12,7 +12,8 @@ defmodule ControlFinancerServerWeb.BankView do
 
   def render("bank.json", %{bank: bank}) do
     %{
-      id: bank.id
+      id: bank.id,
+      name: bank.name
     }
   end
 end

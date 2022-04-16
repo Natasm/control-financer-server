@@ -7,9 +7,9 @@ defmodule ControlFinancerServer.Banks.CreditCard do
     field :limit, :float
     field :closing_day, :utc_datetime
     field :expiration_day, :utc_datetime
-    belongs_to :bank_id, ControlFinancerServer.Banks.Bank
-    belongs_to :account_bank_id, ControlFinancerServer.Banks.AccountBank
-    belongs_to :user_id, ControlFinancerServer.Account.User
+    belongs_to :bank, ControlFinancerServer.Banks.Bank
+    belongs_to :account_bank, ControlFinancerServer.Banks.AccountBank
+    belongs_to :user, ControlFinancerServer.Account.User
 
     timestamps()
   end

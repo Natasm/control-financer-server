@@ -16,7 +16,8 @@ defmodule ControlFinancerServerWeb.RecordAccountBankController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.record_account_bank_path(conn, :show, record_account_bank))
-      |> render("show.json", record_account_bank: record_account_bank)
+      #|> render("show.json", record_account_bank: record_account_bank)
+      |> render("default.json")
     end
   end
 
@@ -29,7 +30,8 @@ defmodule ControlFinancerServerWeb.RecordAccountBankController do
     record_account_bank = Records.get_record_account_bank!(id)
 
     with {:ok, %RecordAccountBank{} = record_account_bank} <- Records.update_record_account_bank(record_account_bank, record_account_bank_params) do
-      render(conn, "show.json", record_account_bank: record_account_bank)
+      #render(conn, "show.json", record_account_bank: record_account_bank)
+      render(conn, "default.json")
     end
   end
 

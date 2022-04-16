@@ -12,7 +12,10 @@ defmodule ControlFinancerServerWeb.UserView do
 
   def render("user.json", %{user: user}) do
     %{
-      id: user.id
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      password: user.password
     }
   end
 end

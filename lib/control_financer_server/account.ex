@@ -8,6 +8,10 @@ defmodule ControlFinancerServer.Account do
 
   alias ControlFinancerServer.Account.User
 
+  #TEST
+  require Logger
+  use Timex
+
   @doc """
   Returns the list of users.
 
@@ -101,4 +105,5 @@ defmodule ControlFinancerServer.Account do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
 end

@@ -16,7 +16,8 @@ defmodule ControlFinancerServerWeb.AccountBankController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.account_bank_path(conn, :show, account_bank))
-      |> render("show.json", account_bank: account_bank)
+      |> render("default.json")
+      #|> render("show.json", account_bank: account_bank)
     end
   end
 
@@ -29,7 +30,8 @@ defmodule ControlFinancerServerWeb.AccountBankController do
     account_bank = Banks.get_account_bank!(id)
 
     with {:ok, %AccountBank{} = account_bank} <- Banks.update_account_bank(account_bank, account_bank_params) do
-      render(conn, "show.json", account_bank: account_bank)
+      #render(conn, "show.json", account_bank: account_bank)
+      render("default.json")
     end
   end
 

@@ -12,7 +12,9 @@ defmodule ControlFinancerServerWeb.CategoryView do
 
   def render("category.json", %{category: category}) do
     %{
-      id: category.id
+      id: category.id,
+      name: category.name,
+      type: category.type
     }
   end
 end

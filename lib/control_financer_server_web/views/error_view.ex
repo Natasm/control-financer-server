@@ -1,6 +1,9 @@
 defmodule ControlFinancerServerWeb.ErrorView do
   use ControlFinancerServerWeb, :view
 
+  #TEST
+  require Logger
+
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
   # def render("500.json", _assigns) do
@@ -12,5 +15,9 @@ defmodule ControlFinancerServerWeb.ErrorView do
   # "Not Found".
   def template_not_found(template, _assigns) do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+  end
+
+  def render("message_error.json", assigns) do
+    %{errors: assigns.message}
   end
 end

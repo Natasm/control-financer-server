@@ -115,6 +115,7 @@ defmodule ControlFinancerServer.Records do
   """
   def list_record_account_banks do
     Repo.all(RecordAccountBank)
+    |> Repo.preload([:category, :user, :account_bank, account_bank: [:bank, :user]])
   end
 
   @doc """
@@ -131,7 +132,9 @@ defmodule ControlFinancerServer.Records do
       ** (Ecto.NoResultsError)
 
   """
-  def get_record_account_bank!(id), do: Repo.get!(RecordAccountBank, id)
+  def get_record_account_bank!(id), do: 
+    Repo.get!(RecordAccountBank, id)
+    |> Repo.preload([:category, :user, :account_bank, account_bank: [:bank, :user]])
 
   @doc """
   Creates a record_account_bank.
@@ -227,7 +230,8 @@ defmodule ControlFinancerServer.Records do
       ** (Ecto.NoResultsError)
 
   """
-  def get_record_credit_card!(id), do: Repo.get!(RecordCreditCard, id)
+  def get_record_credit_card!(id), do: 
+    Repo.get!(RecordCreditCard, id)
 
   @doc """
   Creates a record_credit_card.
@@ -292,5 +296,42 @@ defmodule ControlFinancerServer.Records do
   """
   def change_record_credit_card(%RecordCreditCard{} = record_credit_card, attrs \\ %{}) do
     RecordCreditCard.changeset(record_credit_card, attrs)
+  end
+
+  def create_record_credit_card_all(attrs \\ %{}) do
+    
+    list_not_valid = search_changeset_not_valid(attrs)
+    
+    if length(list_not_valid) > 0 do
+      [head | _tail] = list_not_valid
+      {:error, head}
+    else
+      data = 
+        transform_to_maps(attrs)
+        |> Enum.map(fn(row) ->
+          row
+            |> Map.put(:inserted_at, NaiveDateTime.truncate(Timex.to_naive_datetime(Timex.now), :second))
+            |> Map.put(:updated_at, NaiveDateTime.truncate(Timex.to_naive_datetime(Timex.now), :second))
+        end)
+
+      try do
+        {:ok, Repo.insert_all(RecordCreditCard, data)}
+      rescue
+        _ ->
+          {:error, %{detail: "Could not insert - Records Credit Card :("}}
+      end
+    end
+  end
+
+  defp search_changeset_not_valid(attrs) do
+    attrs
+    |> Enum.map(fn element -> RecordCreditCard.changeset(%RecordCreditCard{}, element) end)
+    |> Enum.filter(fn element -> element.valid? == false end)
+  end
+
+  defp transform_to_maps(attrs) do
+    attrs
+    |> Enum.map(fn element -> RecordCreditCard.changeset(%RecordCreditCard{}, element) end)
+    |> Enum.map(fn element -> element.changes end)
   end
 end

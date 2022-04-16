@@ -5,8 +5,8 @@ defmodule ControlFinancerServer.Banks.AccountBank do
   schema "account_banks" do
     field :name, :string
     field :balance, :float
-    belongs_to :bank_id, ControlFinancerServer.Banks.Bank
-    belongs_to :user_id, ControlFinancerServer.Account.User
+    belongs_to :bank, ControlFinancerServer.Banks.Bank
+    belongs_to :user, ControlFinancerServer.Account.User
 
     timestamps()
   end

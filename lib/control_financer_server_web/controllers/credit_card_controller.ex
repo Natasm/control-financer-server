@@ -16,7 +16,8 @@ defmodule ControlFinancerServerWeb.CreditCardController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.credit_card_path(conn, :show, credit_card))
-      |> render("show.json", credit_card: credit_card)
+      #|> render("show.json", credit_card: credit_card)
+      |> render("default.json")
     end
   end
 
@@ -29,7 +30,8 @@ defmodule ControlFinancerServerWeb.CreditCardController do
     credit_card = Banks.get_credit_card!(id)
 
     with {:ok, %CreditCard{} = credit_card} <- Banks.update_credit_card(credit_card, credit_card_params) do
-      render(conn, "show.json", credit_card: credit_card)
+      #render(conn, "show.json", credit_card: credit_card)
+      render("default.json")
     end
   end
 

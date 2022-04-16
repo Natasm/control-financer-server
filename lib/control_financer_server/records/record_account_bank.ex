@@ -4,11 +4,14 @@ defmodule ControlFinancerServer.Records.RecordAccountBank do
 
   schema "record_account_banks" do
     field :description, :string
+    field :date, :utc_datetime
+    belongs_to :category, ControlFinancerServer.Utils.Category
+    belongs_to :user, ControlFinancerServer.Account.User
+
+    belongs_to :account_bank, ControlFinancerServer.Banks.AccountBank
     field :value, :float
     field :payment_date, :utc_datetime
-    belongs_to :category_id, ControlFinancerServer.Utils.Category
-    belongs_to :user_id, ControlFinancerServer.Account.User
-    belongs_to :account_bank_id, ControlFinancerServer.Banks.AccountBank
+    field :status, :string
 
     timestamps()
   end
@@ -16,7 +19,7 @@ defmodule ControlFinancerServer.Records.RecordAccountBank do
   @doc false
   def changeset(record_account_bank, attrs) do
     record_account_bank
-    |> cast(attrs, [:description, :value, :payment_date, :category_id, :user_id, :account_bank_id])
-    |> validate_required([:description, :value, :payment_date, :user_id, :account_bank_id])
+    |> cast(attrs, [:description, :date, :category_id, :user_id, :account_bank_id, :value, :payment_date, :status])
+    |> validate_required([:description, :date, :user_id, :account_bank_id, :value, :payment_date])
   end
 end

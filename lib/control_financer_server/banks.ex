@@ -115,6 +115,7 @@ defmodule ControlFinancerServer.Banks do
   """
   def list_account_banks do
     Repo.all(AccountBank)
+    |> Repo.preload([:bank, :user])
   end
 
   @doc """
@@ -131,7 +132,9 @@ defmodule ControlFinancerServer.Banks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_account_bank!(id), do: Repo.get!(AccountBank, id)
+  def get_account_bank!(id), do: 
+    Repo.get!(AccountBank, id) 
+    |> Repo.preload([:bank, :user])
 
   @doc """
   Creates a account_bank.
@@ -211,6 +214,7 @@ defmodule ControlFinancerServer.Banks do
   """
   def list_credit_cards do
     Repo.all(CreditCard)
+    |> Repo.preload([:bank, :account_bank, :user, account_bank: [:bank, :user]])
   end
 
   @doc """
@@ -227,7 +231,9 @@ defmodule ControlFinancerServer.Banks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_credit_card!(id), do: Repo.get!(CreditCard, id)
+  def get_credit_card!(id), do: 
+    Repo.get!(CreditCard, id)
+    |> Repo.preload([:bank, :account_bank, :user, account_bank: [:bank, :user]])
 
   @doc """
   Creates a credit_card.

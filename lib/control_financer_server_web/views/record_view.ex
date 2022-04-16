@@ -12,7 +12,15 @@ defmodule ControlFinancerServerWeb.RecordView do
 
   def render("record.json", %{record: record}) do
     %{
-      id: record.id
+      id: record.id,
+      description: record.description,
+      date: record.date,
+      category: render_one(record.category, CategoryView, "category.json"),
+      user: render_one(record.user, UserView, "user.json")
     }
+  end
+
+  def render("default.json", %{}) do
+    %{}
   end
 end

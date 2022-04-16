@@ -2,6 +2,10 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
   use ControlFinancerServerWeb, :view
   alias ControlFinancerServerWeb.RecordCreditCardView
 
+  alias ControlFinancerServerWeb.CategoryView
+  alias ControlFinancerServerWeb.UserView
+  alias ControlFinancerServerWeb.CreditCardView
+
   def render("index.json", %{record_credit_cards: record_credit_cards}) do
     %{data: render_many(record_credit_cards, RecordCreditCardView, "record_credit_card.json")}
   end
@@ -12,7 +16,25 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
 
   def render("record_credit_card.json", %{record_credit_card: record_credit_card}) do
     %{
-      id: record_credit_card.id
+      id: record_credit_card.id,
+      description: record_credit_card.description,
+      date: record_credit_card.date,
+      #category: render_one(record_credit_card.category, CategoryView, "category.json"),
+      category_id: record_credit_card.category_id,
+      #user: render_one(record_credit_card.user, UserView, "user.json"),
+      user_id: record_credit_card.user_id,
+      #credit_card: render_one(record_credit_card.credit_card, CreditCardView, "credit_card.json"),
+      credit_card_id: record_credit_card.credit_card_id,
+      
+      value: record_credit_card.value,
+      payment_date: record_credit_card.payment_date,
+      status: record_credit_card.status,
+      number_of_times: record_credit_card.number_of_times,
+      equivalent_installment_number: record_credit_card.equivalent_installment_number
     }
+  end
+
+  def render("default.json", %{}) do
+    %{}
   end
 end

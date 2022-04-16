@@ -6,6 +6,9 @@ defmodule ControlFinancerServerWeb.UserController do
 
   action_fallback ControlFinancerServerWeb.FallbackController
 
+  #TEST
+  require Logger
+
   def index(conn, _params) do
     users = Account.list_users()
     render(conn, "index.json", users: users)
@@ -40,4 +43,5 @@ defmodule ControlFinancerServerWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+  
 end
