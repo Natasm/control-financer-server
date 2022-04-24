@@ -18,7 +18,6 @@ defmodule ControlFinancerServerWeb.RecordAccountBankView do
     %{
       id: record_account_bank.id,
       description: record_account_bank.description,
-      date: record_account_bank.date,
       category: render_one(record_account_bank.category, CategoryView, "category.json"),
       user: render_one(record_account_bank.user, UserView, "user.json"),
 

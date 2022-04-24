@@ -29,7 +29,7 @@ defmodule ControlFinancerServerWeb.RecordCreditCardController do
   def update(conn, %{"id" => id, "record_credit_card" => record_credit_card_params}) do
     record_credit_card = Records.get_record_credit_card!(id)
 
-    with {:ok, %RecordCreditCard{} = record_credit_card} <- Records.update_record_credit_card(record_credit_card, record_credit_card_params) do
+    with {:ok, _} <- Records.update_record_credit_card(record_credit_card, record_credit_card_params) do
       #render(conn, "show.json", record_credit_card: record_credit_card)
       render(conn, "default.json")
     end
@@ -43,8 +43,8 @@ defmodule ControlFinancerServerWeb.RecordCreditCardController do
     end
   end
 
-  def createAll(conn, %{"records" => records}) do
-    with {:ok, _} <- Records.create_record_credit_card_all(records) do
+  def createAll(conn, %{"parcel" => parcel, "records" => records}) do
+    with {:ok, _} <- Records.create_record_credit_card_all(parcel, records) do
       conn
       |> put_status(:created)
       |> render("default.json")

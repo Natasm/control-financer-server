@@ -158,4 +158,56 @@ defmodule ControlFinancerServer.RecordsTest do
       assert %Ecto.Changeset{} = Records.change_record_credit_card(record_credit_card)
     end
   end
+
+  describe "record_credit_cards_parcel" do
+    alias ControlFinancerServer.Records.RecordCreditCardParcel
+
+    import ControlFinancerServer.RecordsFixtures
+
+    @invalid_attrs %{}
+
+    test "list_record_credit_cards_parcel/0 returns all record_credit_cards_parcel" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      assert Records.list_record_credit_cards_parcel() == [record_credit_card_parcel]
+    end
+
+    test "get_record_credit_card_parcel!/1 returns the record_credit_card_parcel with given id" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      assert Records.get_record_credit_card_parcel!(record_credit_card_parcel.id) == record_credit_card_parcel
+    end
+
+    test "create_record_credit_card_parcel/1 with valid data creates a record_credit_card_parcel" do
+      valid_attrs = %{}
+
+      assert {:ok, %RecordCreditCardParcel{} = record_credit_card_parcel} = Records.create_record_credit_card_parcel(valid_attrs)
+    end
+
+    test "create_record_credit_card_parcel/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Records.create_record_credit_card_parcel(@invalid_attrs)
+    end
+
+    test "update_record_credit_card_parcel/2 with valid data updates the record_credit_card_parcel" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      update_attrs = %{}
+
+      assert {:ok, %RecordCreditCardParcel{} = record_credit_card_parcel} = Records.update_record_credit_card_parcel(record_credit_card_parcel, update_attrs)
+    end
+
+    test "update_record_credit_card_parcel/2 with invalid data returns error changeset" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      assert {:error, %Ecto.Changeset{}} = Records.update_record_credit_card_parcel(record_credit_card_parcel, @invalid_attrs)
+      assert record_credit_card_parcel == Records.get_record_credit_card_parcel!(record_credit_card_parcel.id)
+    end
+
+    test "delete_record_credit_card_parcel/1 deletes the record_credit_card_parcel" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      assert {:ok, %RecordCreditCardParcel{}} = Records.delete_record_credit_card_parcel(record_credit_card_parcel)
+      assert_raise Ecto.NoResultsError, fn -> Records.get_record_credit_card_parcel!(record_credit_card_parcel.id) end
+    end
+
+    test "change_record_credit_card_parcel/1 returns a record_credit_card_parcel changeset" do
+      record_credit_card_parcel = record_credit_card_parcel_fixture()
+      assert %Ecto.Changeset{} = Records.change_record_credit_card_parcel(record_credit_card_parcel)
+    end
+  end
 end

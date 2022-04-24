@@ -45,4 +45,18 @@ defmodule ControlFinancerServer.RecordsFixtures do
 
     record_credit_card
   end
+
+  @doc """
+  Generate a record_credit_card_parcel.
+  """
+  def record_credit_card_parcel_fixture(attrs \\ %{}) do
+    {:ok, record_credit_card_parcel} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> ControlFinancerServer.Records.create_record_credit_card_parcel()
+
+    record_credit_card_parcel
+  end
 end

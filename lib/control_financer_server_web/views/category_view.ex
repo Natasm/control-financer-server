@@ -14,7 +14,9 @@ defmodule ControlFinancerServerWeb.CategoryView do
     %{
       id: category.id,
       name: category.name,
-      type: category.type
+      type: category.type,
+      predictValue: category.predictValue,
+      user_id: category.user_id
     }
   end
 end

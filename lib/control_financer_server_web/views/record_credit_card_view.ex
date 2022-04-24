@@ -18,7 +18,6 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
     %{
       id: record_credit_card.id,
       description: record_credit_card.description,
-      date: record_credit_card.date,
       #category: render_one(record_credit_card.category, CategoryView, "category.json"),
       category_id: record_credit_card.category_id,
       #user: render_one(record_credit_card.user, UserView, "user.json"),
@@ -29,8 +28,7 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
       value: record_credit_card.value,
       payment_date: record_credit_card.payment_date,
       status: record_credit_card.status,
-      number_of_times: record_credit_card.number_of_times,
-      equivalent_installment_number: record_credit_card.equivalent_installment_number
+      equivalent_parcel_number: record_credit_card.equivalent_parcel_number
     }
   end
 

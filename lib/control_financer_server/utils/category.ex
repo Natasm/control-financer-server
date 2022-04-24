@@ -5,6 +5,8 @@ defmodule ControlFinancerServer.Utils.Category do
   schema "categories" do
     field :name, :string
     field :type, :integer
+    field :predictValue, :float
+    belongs_to :user, ControlFinancerServer.Account.User
 
     timestamps()
   end
@@ -12,7 +14,7 @@ defmodule ControlFinancerServer.Utils.Category do
   @doc false
   def changeset(category, attrs) do
     category
-    |> cast(attrs, [:name, :type])
-    |> validate_required([:name, :type])
+    |> cast(attrs, [:name, :type, :predictValue, :user_id])
+    |> validate_required([:name, :type, :predictValue, :user_id])
   end
 end

@@ -7,7 +7,7 @@ defmodule ControlFinancerServer.Repo.Migrations.CreateUser do
       add :email, :string, null: false
       add :password, :string, null: false
 
-      timestamps([type: :utc_datetime])
+      timestamps()
     end
 
     create(unique_index(:users, [:email]))

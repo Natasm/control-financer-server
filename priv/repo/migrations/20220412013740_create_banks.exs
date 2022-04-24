@@ -5,7 +5,7 @@ defmodule ControlFinancerServer.Repo.Migrations.CreateBanks do
     create table(:banks) do
       add :name, :string, null: false
 
-      timestamps([type: :utc_datetime])
+      timestamps()
     end
   end
 end

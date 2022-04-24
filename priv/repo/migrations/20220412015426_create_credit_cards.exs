@@ -11,7 +11,7 @@ defmodule ControlFinancerServer.Repo.Migrations.CreateCreditCards do
       add :account_bank_id, references(:account_banks)
       add :user_id, references(:users), null: false
 
-      timestamps([type: :utc_datetime])
+      timestamps()
     end
   end
 end

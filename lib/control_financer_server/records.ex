@@ -8,6 +8,8 @@ defmodule ControlFinancerServer.Records do
 
   alias ControlFinancerServer.Records.Record
 
+  require Logger
+
   @doc """
   Returns the list of records.
 
@@ -298,40 +300,138 @@ defmodule ControlFinancerServer.Records do
     RecordCreditCard.changeset(record_credit_card, attrs)
   end
 
-  def create_record_credit_card_all(attrs \\ %{}) do
-    
-    list_not_valid = search_changeset_not_valid(attrs)
-    
-    if length(list_not_valid) > 0 do
-      [head | _tail] = list_not_valid
-      {:error, head}
-    else
+  alias ControlFinancerServer.Records.RecordCreditCardParcel
+
+  def create_record_credit_card_all(parcel \\ %{}, records \\ %{}) do
+    parcel = RecordCreditCardParcel.changeset(%RecordCreditCardParcel{}, parcel)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:parcel, parcel)
+    |> Ecto.Multi.run(:record_credit_cards, fn repo, %{parcel: parcel} ->
       data = 
-        transform_to_maps(attrs)
+        records
+        |> transform_to_maps()
+        |> include_parcel_id_to_records(parcel)
         |> Enum.map(fn(row) ->
           row
-            |> Map.put(:inserted_at, NaiveDateTime.truncate(Timex.to_naive_datetime(Timex.now), :second))
-            |> Map.put(:updated_at, NaiveDateTime.truncate(Timex.to_naive_datetime(Timex.now), :second))
+          |> Map.put(:inserted_at, Timex.now(:local) |> NaiveDateTime.truncate(:second))
+          |> Map.put(:updated_at, Timex.now(:local) |> NaiveDateTime.truncate(:second))
         end)
+      
+      {_, rows} = repo.insert_all(RecordCreditCard, data)
 
-      try do
-        {:ok, Repo.insert_all(RecordCreditCard, data)}
-      rescue
-        _ ->
-          {:error, %{detail: "Could not insert - Records Credit Card :("}}
+      {:ok, rows}
+    end)
+    |> Repo.transaction()
+    |> case do
+      {:ok, _} ->
+        {:ok, %{records: records}}
+      _ ->
+        {:error, "Ocorreu um erro"}
       end
-    end
   end
 
-  defp search_changeset_not_valid(attrs) do
-    attrs
-    |> Enum.map(fn element -> RecordCreditCard.changeset(%RecordCreditCard{}, element) end)
-    |> Enum.filter(fn element -> element.valid? == false end)
+  defp include_parcel_id_to_records(data, parcel) do
+    data
+    |> Enum.map(fn element -> Map.put(element, :record_credit_card_parcel_id, parcel.id) end)
   end
 
   defp transform_to_maps(attrs) do
     attrs
-    |> Enum.map(fn element -> RecordCreditCard.changeset(%RecordCreditCard{}, element) end)
-    |> Enum.map(fn element -> element.changes end)
+    |> Enum.map(fn element -> RecordCreditCard.changeset(%RecordCreditCard{}, element).changes end)
+  end
+
+  @doc """
+  Returns the list of record_credit_cards_parcel.
+
+  ## Examples
+
+      iex> list_record_credit_cards_parcel()
+      [%RecordCreditCardParcel{}, ...]
+
+  """
+  def list_record_credit_cards_parcel do
+    Repo.all(RecordCreditCardParcel)
+  end
+
+  @doc """
+  Gets a single record_credit_card_parcel.
+
+  Raises `Ecto.NoResultsError` if the Record credit card parcel does not exist.
+
+  ## Examples
+
+      iex> get_record_credit_card_parcel!(123)
+      %RecordCreditCardParcel{}
+
+      iex> get_record_credit_card_parcel!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_record_credit_card_parcel!(id), do: Repo.get!(RecordCreditCardParcel, id)
+
+  @doc """
+  Creates a record_credit_card_parcel.
+
+  ## Examples
+
+      iex> create_record_credit_card_parcel(%{field: value})
+      {:ok, %RecordCreditCardParcel{}}
+
+      iex> create_record_credit_card_parcel(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_record_credit_card_parcel(attrs \\ %{}) do
+    %RecordCreditCardParcel{}
+    |> RecordCreditCardParcel.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a record_credit_card_parcel.
+
+  ## Examples
+
+      iex> update_record_credit_card_parcel(record_credit_card_parcel, %{field: new_value})
+      {:ok, %RecordCreditCardParcel{}}
+
+      iex> update_record_credit_card_parcel(record_credit_card_parcel, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_record_credit_card_parcel(%RecordCreditCardParcel{} = record_credit_card_parcel, attrs) do
+    record_credit_card_parcel
+    |> RecordCreditCardParcel.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a record_credit_card_parcel.
+
+  ## Examples
+
+      iex> delete_record_credit_card_parcel(record_credit_card_parcel)
+      {:ok, %RecordCreditCardParcel{}}
+
+      iex> delete_record_credit_card_parcel(record_credit_card_parcel)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_record_credit_card_parcel(%RecordCreditCardParcel{} = record_credit_card_parcel) do
+    Repo.delete(record_credit_card_parcel)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking record_credit_card_parcel changes.
+
+  ## Examples
+
+      iex> change_record_credit_card_parcel(record_credit_card_parcel)
+      %Ecto.Changeset{data: %RecordCreditCardParcel{}}
+
+  """
+  def change_record_credit_card_parcel(%RecordCreditCardParcel{} = record_credit_card_parcel, attrs \\ %{}) do
+    RecordCreditCardParcel.changeset(record_credit_card_parcel, attrs)
   end
 end

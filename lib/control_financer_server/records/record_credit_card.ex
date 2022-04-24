@@ -4,7 +4,6 @@ defmodule ControlFinancerServer.Records.RecordCreditCard do
 
   schema "record_credit_cards" do
     field :description, :string
-    field :date, :utc_datetime
     belongs_to :category, ControlFinancerServer.Utils.Category
     belongs_to :user, ControlFinancerServer.Account.User
 
@@ -12,8 +11,9 @@ defmodule ControlFinancerServer.Records.RecordCreditCard do
     field :value, :float
     field :payment_date, :utc_datetime
     field :status, :string
-    field :number_of_times, :integer
-    field :equivalent_installment_number, :integer
+    field :equivalent_parcel_number, :integer
+
+    belongs_to :record_credit_card_parcel, ControlFinancerServer.Records.RecordCreditCardParcel
 
     timestamps()
   end
@@ -21,7 +21,7 @@ defmodule ControlFinancerServer.Records.RecordCreditCard do
   @doc false
   def changeset(record_credit_card, attrs) do
     record_credit_card
-    |> cast(attrs, [:description, :date, :value, :payment_date, :category_id, :user_id, :credit_card_id, :value, :payment_date, :status, :number_of_times, :equivalent_installment_number])
-    |> validate_required([:description, :date, :user_id, :credit_card_id, :value, :payment_date, :number_of_times, :equivalent_installment_number])
+    |> cast(attrs, [:description, :value, :payment_date, :category_id, :user_id, :credit_card_id, :value, :payment_date, :status, :equivalent_parcel_number, :record_credit_card_parcel_id])
+    |> validate_required([:description, :user_id, :credit_card_id, :value, :payment_date, :equivalent_parcel_number, :record_credit_card_parcel_id])
   end
 end

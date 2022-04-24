@@ -8,7 +8,7 @@ defmodule ControlFinancerServer.Repo.Migrations.CreateAccountBank do
       add :bank_id, references(:banks), null: false
       add :user_id, references(:users), null: false
 
-      timestamps([type: :utc_datetime])
+      timestamps()
     end
   end
 end
