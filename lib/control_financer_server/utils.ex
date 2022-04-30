@@ -7,6 +7,7 @@ defmodule ControlFinancerServer.Utils do
   alias ControlFinancerServer.Repo
 
   alias ControlFinancerServer.Utils.Category
+  alias ControlFinancerServer.Records.RecordCreditCard
 
   @doc """
   Returns the list of categories.
@@ -19,6 +20,38 @@ defmodule ControlFinancerServer.Utils do
   """
   def list_categories do
     Repo.all(Category)
+  end
+
+  def list_categories_by_user(user_id) do
+    query = from category in Category,
+      where: category.user_id == ^user_id
+    
+    Repo.all(query)
+  end
+
+  def list_amount_of_categories_by_user(user_id, month, year) do
+    query = from category in Category,
+      where: category.user_id == ^user_id
+    
+    Repo.all(query)
+    |> Enum.map(fn category -> %{
+      name: category.name,
+      predictValue: category.predictValue,
+      currentValue: amount_sum_by_category_and_user(category.id, user_id, month, year)
+    } end)
+  end
+
+  defp amount_sum_by_category_and_user(category_id, user_id, month, year) do
+    {month_parsed, _} = Integer.parse(month, 10)
+    {year_parsed, _} = Integer.parse(year, 10)
+    
+    query_record = from record in RecordCreditCard,
+        where: record.category_id == ^category_id and record.user_id == ^user_id
+        and fragment("EXTRACT(MONTH FROM ?)", record.payment_date) == ^month_parsed and
+        fragment("EXTRACT(YEAR FROM ?)", record.payment_date) == ^year_parsed,
+        select: coalesce(sum(record.value), 0)
+
+    Repo.one(query_record)
   end
 
   @doc """

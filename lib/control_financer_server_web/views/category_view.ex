@@ -19,4 +19,16 @@ defmodule ControlFinancerServerWeb.CategoryView do
       user_id: category.user_id
     }
   end
+
+  def render("index_amount.json", %{amounts: amounts}) do
+    %{data: render_many(amounts, CategoryView, "amount_by_categories.json", as: :amount)}
+  end
+
+  def render("amount_by_categories.json", %{amount: amount}) do
+    %{
+      name: amount.name,
+      predictValue: amount.predictValue,
+      currentValue: amount.currentValue
+    }
+  end
 end

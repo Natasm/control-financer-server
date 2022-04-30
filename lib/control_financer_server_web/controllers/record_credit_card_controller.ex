@@ -4,7 +4,19 @@ defmodule ControlFinancerServerWeb.RecordCreditCardController do
   alias ControlFinancerServer.Records
   alias ControlFinancerServer.Records.RecordCreditCard
 
+  require Logger
+
   action_fallback ControlFinancerServerWeb.FallbackController
+
+  def index(conn, %{"month" => month, "year" => year}) do
+    record_credit_cards = Records.list_record_credit_cards_by_date(month, year)
+    render(conn, "index.json", record_credit_cards: record_credit_cards)
+  end
+
+  def index(conn, %{"category_id" => category_id}) do
+    record_credit_cards = Records.list_record_credit_cards_by_category(category_id)
+    render(conn, "index.json", record_credit_cards: record_credit_cards)
+  end
 
   def index(conn, _params) do
     record_credit_cards = Records.list_record_credit_cards()

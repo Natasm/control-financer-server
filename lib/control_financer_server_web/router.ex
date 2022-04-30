@@ -9,6 +9,8 @@ defmodule ControlFinancerServerWeb.Router do
   scope "/api", ControlFinancerServerWeb do
     pipe_through :api
 
+    get "/category/amount", CategoryController, :get_amount_of_categories_by_user
+
     resources "/user", UserController, only: [:index, :create, :show]
     resources "/bank", BankController, only: [:index, :create, :show]
     resources "/category", CategoryController, only: [:index, :create, :show]

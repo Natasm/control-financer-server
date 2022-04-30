@@ -6,9 +6,21 @@ defmodule ControlFinancerServerWeb.CategoryController do
 
   action_fallback ControlFinancerServerWeb.FallbackController
 
+  def index(conn, %{"user_id" => user_id}) do
+    categories = Utils.list_categories_by_user(user_id)
+    render(conn, "index.json", categories: categories)
+  end
+
   def index(conn, _params) do
     categories = Utils.list_categories()
     render(conn, "index.json", categories: categories)
+  end
+
+  require Logger
+
+  def get_amount_of_categories_by_user(conn, %{"user_id" => user_id, "month" => month, "year" => year}) do
+    amounts = Utils.list_amount_of_categories_by_user(user_id, month, year)
+    render(conn, "index_amount.json", amounts: amounts)
   end
 
   def create(conn, %{"category" => category_params}) do

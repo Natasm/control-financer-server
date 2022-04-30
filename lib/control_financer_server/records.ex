@@ -8,8 +8,6 @@ defmodule ControlFinancerServer.Records do
 
   alias ControlFinancerServer.Records.Record
 
-  require Logger
-
   @doc """
   Returns the list of records.
 
@@ -216,6 +214,27 @@ defmodule ControlFinancerServer.Records do
   """
   def list_record_credit_cards do
     Repo.all(RecordCreditCard)
+  end
+
+  def list_record_credit_cards_by_date(month, year) do
+    {month_parsed, _} = Integer.parse(month, 10)
+    {year_parsed, _} = Integer.parse(year, 10)
+
+    query = from record in RecordCreditCard,
+      where: 
+        fragment("EXTRACT(MONTH FROM ?)", record.payment_date) == ^month_parsed and
+        fragment("EXTRACT(YEAR FROM ?)", record.payment_date) == ^year_parsed
+    
+    Repo.all(query)
+  end
+
+  def list_record_credit_cards_by_category(category_id) do
+    {category_id_parsed, _} = Integer.parse(category_id, 10)
+
+    query = from record in RecordCreditCard,
+      where: record.category_id == ^category_id_parsed
+    
+    Repo.all(query)
   end
 
   @doc """
