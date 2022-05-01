@@ -4,8 +4,8 @@ import Config
 config :control_financer_server, ControlFinancerServer.Repo,
   username: "postgres",
   password: "admin",
-  #hostname: "localhost",
-  hostname: "host.docker.internal",
+  hostname: "localhost",
+  #hostname: "host.docker.internal",
   database: "control_financer_db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

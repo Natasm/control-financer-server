@@ -1,5 +1,18 @@
 import Config
 
+config :control_financer_server, ControlFinancerServerWeb.Endpoint,
+    load_from_system_env: true,
+    http: [port: {:system, "PORT"}],
+    url: [scheme: "https", host: "https://.gigalixir.com/", port: 443],
+    force_ssl: [rewrite_on: [:x_forwarded_proto]],
+    secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
+
+config :control_financer_server, ControlFinancerServer.Repo,
+    adapter: Ecto.Adapters.Postgres,
+    url: System.get_env("DATABASE_URL"),
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "2"),
+    ssl: true
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
