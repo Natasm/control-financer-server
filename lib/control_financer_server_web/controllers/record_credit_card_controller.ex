@@ -55,11 +55,17 @@ defmodule ControlFinancerServerWeb.RecordCreditCardController do
     end
   end
 
-  def createAll(conn, %{"parcel" => parcel, "records" => records}) do
+  def create_all(conn, %{"parcel" => parcel, "records" => records}) do
     with {:ok, _} <- Records.create_record_credit_card_all(parcel, records) do
       conn
       |> put_status(:created)
       |> render("default.json")
+    end
+  end
+
+  def delete_all_by_parcel(conn, %{"parcel_id" => parcel_id}) do
+    with {:ok, _} <- Records.delete_all_record_credit_cards_by_parcel(parcel_id) do
+      send_resp(conn, :no_content, "")
     end
   end
 end

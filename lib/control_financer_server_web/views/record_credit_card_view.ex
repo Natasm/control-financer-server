@@ -24,6 +24,8 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
       user_id: record_credit_card.user_id,
       #credit_card: render_one(record_credit_card.credit_card, CreditCardView, "credit_card.json"),
       credit_card_id: record_credit_card.credit_card_id,
+
+      record_credit_card_parcel_id: record_credit_card.record_credit_card_parcel_id,
       
       value: record_credit_card.value,
       payment_date: record_credit_card.payment_date,

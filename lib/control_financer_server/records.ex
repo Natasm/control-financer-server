@@ -306,6 +306,15 @@ defmodule ControlFinancerServer.Records do
     Repo.delete(record_credit_card)
   end
 
+  def delete_all_record_credit_cards_by_parcel(parcel_id) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.delete_all(
+      :delete_all_records, from(record in RecordCreditCard, where: record.record_credit_card_parcel_id == ^parcel_id)
+    )
+    |> Ecto.Multi.delete(:delete_parcel, get_record_credit_card_parcel!(parcel_id))
+    |> Repo.transaction()
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking record_credit_card changes.
 
