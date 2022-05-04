@@ -22,6 +22,6 @@ defmodule ControlFinancerServer.Records.RecordCreditCard do
   def changeset(record_credit_card, attrs) do
     record_credit_card
     |> cast(attrs, [:description, :value, :payment_date, :category_id, :user_id, :credit_card_id, :value, :payment_date, :status, :equivalent_parcel_number, :record_credit_card_parcel_id])
-    |> validate_required([:description, :user_id, :credit_card_id, :value, :payment_date, :equivalent_parcel_number, :record_credit_card_parcel_id])
+    |> validate_required([:description, :user_id, :credit_card_id, :value, :payment_date, :equivalent_parcel_number])
   end
 end

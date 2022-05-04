@@ -12,7 +12,8 @@ defmodule ControlFinancerServerWeb.RecordCreditCardParcelView do
 
   def render("record_credit_card_parcel.json", %{record_credit_card_parcel: record_credit_card_parcel}) do
     %{
-      id: record_credit_card_parcel.id
+      id: record_credit_card_parcel.id,
+      number_of_times: record_credit_card_parcel.number_of_times
     }
   end
 end

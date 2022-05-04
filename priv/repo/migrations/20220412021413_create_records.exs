@@ -31,7 +31,7 @@ defmodule ControlFinancerServer.Repo.Migrations.CreateRecords do
       add :status, :string
       add :equivalent_parcel_number, :integer, null: false
 
-      add :record_credit_card_parcel_id, references(:record_credit_card_parcels), null: false
+      add :record_credit_card_parcel_id, references(:record_credit_card_parcels)
 
       timestamps()
     end 

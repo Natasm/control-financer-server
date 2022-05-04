@@ -214,6 +214,7 @@ defmodule ControlFinancerServer.Records do
   """
   def list_record_credit_cards do
     Repo.all(RecordCreditCard)
+    |> Repo.preload([:record_credit_card_parcel])
   end
 
   def list_record_credit_cards_by_date(month, year) do
@@ -226,6 +227,7 @@ defmodule ControlFinancerServer.Records do
         fragment("EXTRACT(YEAR FROM ?)", record.payment_date) == ^year_parsed
     
     Repo.all(query)
+    |> Repo.preload([:record_credit_card_parcel])
   end
 
   def list_record_credit_cards_by_category(category_id) do
@@ -235,6 +237,7 @@ defmodule ControlFinancerServer.Records do
       where: record.category_id == ^category_id_parsed
     
     Repo.all(query)
+    |> Repo.preload([:record_credit_card_parcel])
   end
 
   @doc """
@@ -253,6 +256,7 @@ defmodule ControlFinancerServer.Records do
   """
   def get_record_credit_card!(id), do: 
     Repo.get!(RecordCreditCard, id)
+    |> Repo.preload([:record_credit_card_parcel])
 
   @doc """
   Creates a record_credit_card.
