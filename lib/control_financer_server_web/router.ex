@@ -18,7 +18,7 @@ defmodule ControlFinancerServerWeb.Router do
     resources "/credit_card", CreditCardController, only: [:index, :create, :show]
     resources "/record", RecordController, only: [:index, :create, :show]
     resources "/record_account_bank", RecordAccountBankController, only: [:index, :create, :show]
-    resources "/record_credit_card", RecordCreditCardController, only: [:index, :create, :delete, :show]
+    resources "/record_credit_card", RecordCreditCardController, only: [:index, :create, :update, :delete, :show]
     resources "/record_credit_card_parcel", RecordCreditCardParcelController, only: [:index, :create, :show]
 
     post "/record_credit_card_all", RecordCreditCardController, :create_all

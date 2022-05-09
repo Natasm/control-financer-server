@@ -27,6 +27,13 @@ defmodule ControlFinancerServerWeb.CreditCardView do
     }
   end
 
+  def render("credit_card_minimal.json", %{credit_card: credit_card}) do
+    %{
+      id: credit_card.id,
+      name: credit_card.name
+    }
+  end
+
   def render("default.json", %{}) do
     %{}
   end

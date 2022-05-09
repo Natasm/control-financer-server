@@ -20,6 +20,13 @@ defmodule ControlFinancerServerWeb.CategoryView do
     }
   end
 
+  def render("category_minimal.json", %{category: category}) do
+    %{
+      id: category.id,
+      name: category.name
+    }
+  end
+
   def render("index_amount.json", %{amounts: amounts}) do
     %{data: render_many(amounts, CategoryView, "amount_by_categories.json", as: :amount)}
   end

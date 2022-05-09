@@ -19,12 +19,15 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
     %{
       id: record_credit_card.id,
       description: record_credit_card.description,
-      #category: render_one(record_credit_card.category, CategoryView, "category.json"),
-      category_id: record_credit_card.category_id,
+      
+      category: render_one(record_credit_card.category, CategoryView, "category_minimal.json"),
+      #category_id: record_credit_card.category_id,
+      
       #user: render_one(record_credit_card.user, UserView, "user.json"),
       user_id: record_credit_card.user_id,
-      #credit_card: render_one(record_credit_card.credit_card, CreditCardView, "credit_card.json"),
-      credit_card_id: record_credit_card.credit_card_id,
+      
+      credit_card: render_one(record_credit_card.credit_card, CreditCardView, "credit_card_minimal.json"),
+      #credit_card_id: record_credit_card.credit_card_id,
 
       record_credit_card_parcel: render_one(record_credit_card.record_credit_card_parcel, RecordCreditCardParcelView, "record_credit_card_parcel.json"),
       
