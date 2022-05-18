@@ -34,7 +34,9 @@ defmodule ControlFinancerServerWeb.RecordCreditCardView do
       value: record_credit_card.value,
       payment_date: record_credit_card.payment_date,
       status: record_credit_card.status,
-      equivalent_parcel_number: record_credit_card.equivalent_parcel_number
+      equivalent_parcel_number: record_credit_card.equivalent_parcel_number,
+
+      inserted_at: record_credit_card.inserted_at
     }
   end
 
